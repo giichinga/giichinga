@@ -1,6 +1,6 @@
 <!-- Banner GIF -->
 <p align="center">
-  <img src="./banner.gif" alt="Coding GIF" width="600"/>
+  <img src="./banner.gif" alt="Coding GIF" width="100%"/>
 </p>
 
 # 👋 Hi, I'm Antonny Gichinga Njoroge
