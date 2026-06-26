@@ -3,27 +3,21 @@
   <img src="./banner.gif" alt="Coding GIF" width="100%"/>
 </p>
 
-# 👋 Hi, I'm Antonny Gichinga Njoroge
+# Hi, I'm Antonny Gichinga Njoroge
 
-💻 **Front End Web Developer** | ⚡ **Electrical Engineer**  
+ **Front End Web Developer** | **Electrical and Electronics Engineering Student**  
 
-I’m passionate about building modern web applications User Interfaces and understanding the intricate workings of electrical systems. 
-
-
-## 🎓 School
-
-Currently, I’m sharpening my skills in:  
-
-- 🎓 **Software Engineering** @ Power Learn Project Africa  
-- 🎓 **Electrical & Electronics Engineering** @ Jomo Kenyatta University of Agriculture and Technology
+> I biuld websites for fun and money
+> I am a Ract dev at **Watuwise Limited**
+> I am a student at **Jomo Kenyatta University of Agriculture and Technology**
 
 
-## 📒 Projects
+## Projects
 
 Check out some of my projects:
-- ✅ **[Scent Story Kenya](https://scentstory.co.ke/)** an online luxury and designer perfumes shop
-- ☑️ **[Pat's Confectionary](https://github.com/giichinga/cake-shop)** online page for a cakehouse
-- ✅ **[Betting Web App](https://github.com/giichinga/Betting-App)** online betting for games in the top 5 football leagues
+- **[Scent Story Kenya](https://scentstory.co.ke/)** an online luxury and designer perfumes shop
+- **[QartMatt Kenya](https://qartmatt.co.ke)** a dropshipping company
+- **[Watuwise Limited](https://watuwise.com)** the page for where I work at!
 
 ## 🛠 Tech Stack
 
@@ -42,18 +36,3 @@ Check out some of my projects:
 
 ---
 
-## 🌐 Connect with Me
-
-<p align="center">
-  <a href="https://giichinga.github.io/portfolio/" target="_blank">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/aboutdotme.svg" width="40" height="40" alt="Website"/>
-  </a>
-  &nbsp;&nbsp;
-  <a href="https://twitter.com/krispah_" target="_blank">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" width="40" height="40" alt="Twitter"/>
-  </a>
-  &nbsp;&nbsp;
-  <a href="https://linkedin.com/in/antonny-njoroge" target="_blank">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" width="40" height="40" alt="LinkedIn"/>
-  </a>
-</p>
