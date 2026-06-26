@@ -7,8 +7,10 @@
 
  **Front End Web Developer** | **Electrical and Electronics Engineering Student**  
 
-> I biuld websites for fun and money
-> I am a Ract dev at **Watuwise Limited**
+> I biuld websites for fun and money.
+ 
+> I am a React dev at **Watuwise Limited**
+
 > I am a student at **Jomo Kenyatta University of Agriculture and Technology**
 
 
