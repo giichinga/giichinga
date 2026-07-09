@@ -957,6 +957,7 @@
   }
 
   .project-card-copy div {
+    display: none;
     border-radius: 3px;
 
     padding: 5px 10px;
@@ -971,26 +972,23 @@
     font-size: 0.7rem;
   }
 
-  div .web-dev {
-    background-color: #008f00;
-  }
-
-  div .design {
-    background-color: #ff2daf;
-  }
-
-  div .pcb {
-    background-color: #0151fd;
-  }
-
   .project-card-copy h3 {
     letter-spacing: -0.05em;
-    color: var(--ink);
     margin: 0;
     font-size: clamp(1.2rem, 2vw, 1.5rem);
     line-height: 1;
   }
+  .web-dev {
+    color: #008f00;
+  }
 
+  .design {
+    color: #ff2daf;
+  }
+
+  .pcb {
+    color: #0151fd;
+  }
   .project-card-copy p {
     color: var(--ink-dim);
     margin: 0;
@@ -1152,6 +1150,7 @@
     padding-inline: 0;
     font-size: clamp(1.85rem, 12vw, 3rem);
   }
+  
 
   .link-stack {
     margin-top: 3rem;
