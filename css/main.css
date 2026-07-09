@@ -956,6 +956,33 @@
     display: grid;
   }
 
+  .project-card-copy div {
+    border-radius: 3px;
+
+    padding: 5px 10px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 0.7rem;
+  }
+
+  div .web-dev {
+    background-color: #008f00;
+  }
+
+  div .design {
+    background-color: #ff2daf;
+  }
+
+  div .pcb {
+    background-color: #0151fd;
+  }
+
   .project-card-copy h3 {
     letter-spacing: -0.05em;
     color: var(--ink);
