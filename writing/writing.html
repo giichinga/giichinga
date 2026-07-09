@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang=en-us data-theme=light>
+    <head>
+        <meta charset=utf-8>
+        <meta name=viewport content="width=device-width,initial-scale=1">
+        <title>Writing · Antonny Gichinga</title>
+        <meta name=description content="Notes on building on the web, working with AI tooling, and turning rough ideas into durable systems.">
+        <meta name=color-scheme content="light dark">
+        <link rel=icon href=/favicon.svg type=image/svg+xml>
+        <script>
+            ( () => {
+                const e = localStorage.getItem("theme")
+                  , t = e === "dark" ? "dark" : "light";
+                document.documentElement.dataset.theme = t
+            }
+            )()
+        </script>
+        <link rel="stylesheet" href="/css/main.css" crossorigin="anonymous">
+    </head>
+    <body class="bg-canvas text-ink antialiased">
+        <main class=page-shell>
+            <button class=theme-toggle type=button aria-label="Toggle color theme" aria-pressed=false data-theme-toggle>
+                <span aria-hidden=true data-theme-icon>◐</span>
+            </button>
+            <div class=page-detail>
+                <a class=page-back href=/>← Home</a>
+                <header class=detail-header>
+                    <p class=detail-kicker>Antonny Gichinga</p>
+                    <h1>Writing</h1>
+                    <p class=detail-summary>Notes on building on the web, working with AI tooling, and turning rough ideas into durable systems.</p>
+                </header>
+                <div class="article-copy writing-intro">
+                    <p>Here I document my thoughts, experiments, and learnings as I build on the web and explore new ideas.</p>
+                </div>
+                <section class=project-board aria-labelledby=writing-board-title>
+                    <h2 id=writing-board-title class=project-board-title>Posts</h2>
+                    <div class=project-list>
+                        <a class=project-card href=/writing/new-pixelos-start/>
+                        <div class=project-card-copy>
+                            <h3>New PixelOS Start</h3>
+                            <p>A new start to PixelOS after all these months of learning stuff</p>
+                            <span class=post-date>June 9, 2026</span>
+                        </div>
+                        <span class=project-card-arrow aria-hidden=true>↗</span>
+</a></div></section></div></main>
+<footer class=site-footer>
+    <div class=footer-inner>
+        <p class=footer-label>Elsewhere</p>
+         <nav class=footer-nav aria-label="Social links">
+            <a class=footer-link href=https://github.com/giichinga target=_blank rel=noreferrer>GitHub</a>
+            <a class=footer-link href=https://x.com/krispah_ target=_blank rel=noreferrer>X</a>
+            <a class=footer-link href=https://www.linkedin.com/in/antonny-njoroge target=_blank rel=noreferrer>LinkedIn</a>
+            <a class=footer-link href=mailto:antonnygichinga@gmail.com>Email</a>
+            <a class=footer-link href=http://discord.com/users/@toe_knee97 target=_blank rel=noreferrer>Discord</a>
+            <a class=footer-link href=https://t.me/Giichinga target=_blank rel=noreferrer>Telegram</a>
+        </nav>
+    </div>
+</footer>
+<script>
+    ( () => {
+        const e = document.querySelector("[data-theme-toggle]")
+          , t = document.documentElement;
+        if (!e)
+            return;
+        const n = e.querySelector("[data-theme-icon]")
+          , s = () => {
+            const s = t.dataset.theme || "light";
+            e.setAttribute("aria-pressed", s === "dark" ? "true" : "false"),
+            n && (n.textContent = s === "dark" ? "☼" : "◐")
+        }
+        ;
+        s(),
+        e.addEventListener("click", () => {
+            const e = t.dataset.theme === "dark" ? "light" : "dark";
+            t.dataset.theme = e,
+            localStorage.setItem("theme", e),
+            s()
+        }
+        )
+    }
+    )()
+</script>
+</body></html>

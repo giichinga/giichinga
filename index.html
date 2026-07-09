@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang=en-us data-theme=light>
+    <head>
+        <meta name=generator content="Hugo 0.160.1">
+        <meta charset=utf-8>
+        <meta name=viewport content="width=device-width,initial-scale=1">
+        <title>Antonny Gichinga</title>
+        <meta name=description content="Learning how computers work">
+        <meta name=color-scheme content="light dark">
+        <link rel=icon href=/favicon.svg type=image/svg+xml>
+        <script>
+            ( () => {
+                const e = localStorage.getItem("theme")
+                  , t = e === "dark" ? "dark" : "light";
+                document.documentElement.dataset.theme = t
+            }
+            )()
+        </script>
+        <link rel="stylesheet" href="../css/main.css" crossorigin="anonymous">
+    </head>
+    <body class="bg-canvas text-ink antialiased">
+        <main class=page-shell>
+            <button class=theme-toggle type=button aria-label="Toggle color theme" aria-pressed=false data-theme-toggle>
+                <span aria-hidden=true data-theme-icon>◐</span>
+            </button>
+            <section class=hero>
+                <div class=monogram aria-hidden=true data-text=/angxddeep>
+                    <span>/giichinga</span>
+                </div>
+                <div class=intro>
+                    <p class=intro-kicker>Personal site</p>
+                    <h1>Antonny Gichinga</h1>
+                    <p class=intro-copy>I learn how the web works, do some designs and attend engineering classes.</p>
+                </div>
+            </section>
+            <section class=link-stack aria-labelledby=destinations-title>
+                <h2 id=destinations-title>You might be looking for:</h2>
+                <div class=card-list>
+                    <a class="destination-card group" href='/projects/projects.html'>
+                    <span class=card-glow aria-hidden=true></span>
+                    <div class=card-body>
+                        <h3>Projects</h3>
+                        <p>Web Dev projects, PCB designs and graphic design projects & other technical endeavors.</p>
+                    </div>
+                    <span class=card-arrow aria-hidden=true>↗</span>
+</a><a class="destination-card group" href='/writing/writing.html'>
+<span class=card-glow aria-hidden=true></span>
+<div class=card-body>
+    <h3>Writing</h3>
+    <p>A piece of my mind on some miscallenous topics</p>
+</div>
+<span class=card-arrow aria-hidden=true>↗</span>
+</a></div></section></main>
+<footer class=site-footer>
+    <div class=footer-inner>
+        <p class=footer-label>Elsewhere</p>
+        <nav class=footer-nav aria-label="Social links">
+            <a class=footer-link href=https://github.com/giichinga target=_blank rel=noreferrer>GitHub</a>
+            <a class=footer-link href=https://x.com/krispah_ target=_blank rel=noreferrer>X</a>
+            <a class=footer-link href=https://www.linkedin.com/in/antonny-njoroge target=_blank rel=noreferrer>LinkedIn</a>
+            <a class=footer-link href=mailto:antonnygichinga@gmail.com>Email</a>
+            <a class=footer-link href=http://discord.com/users/@toe_knee97 target=_blank rel=noreferrer>Discord</a>
+            <a class=footer-link href=https://t.me/Giichinga target=_blank rel=noreferrer>Telegram</a>
+        </nav>
+    </div>
+</footer>
+<script>
+    ( () => {
+        const e = document.querySelector("[data-theme-toggle]")
+          , t = document.documentElement;
+        if (!e)
+            return;
+        const n = e.querySelector("[data-theme-icon]")
+          , s = () => {
+            const s = t.dataset.theme || "light";
+            e.setAttribute("aria-pressed", s === "dark" ? "true" : "false"),
+            n && (n.textContent = s === "dark" ? "☼" : "◐")
+        }
+        ;
+        s(),
+        e.addEventListener("click", () => {
+            const e = t.dataset.theme === "dark" ? "light" : "dark";
+            t.dataset.theme = e,
+            localStorage.setItem("theme", e),
+            s()
+        }
+        )
+    }
+    )()
+</script>
+</body></html>
