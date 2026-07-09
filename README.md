@@ -80,20 +80,3 @@ I'm a front end developer who likes shipping clean, fast interfaces — currentl
 </p>
 
 ---
-
-## 📊 GitHub Stats
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=giichinga&show_icons=true&theme=tokyonight&hide_border=true" width="48%" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=giichinga&theme=tokyonight&hide_border=true" width="48%" />
-</p>
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=giichinga&layout=compact&theme=tokyonight&hide_border=true" width="60%" />
-</p>
-
----
-
-<p align="center">
-  📧 <a href="mailto:antonnygichinga@gmail.com">antonnygichinga@gmail.com</a> &nbsp;|&nbsp; Nairobi, Kenya
-</p>
