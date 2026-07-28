@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang=en-us data-theme=light>
+    <head>
+        <meta name=generator content="Hugo 0.160.1">
+        <meta charset=utf-8>
+        <meta name=viewport content="width=device-width,initial-scale=1">
+        <title>Adaptive Modulation Selection using Machine Learning - Antonny Gichinga</title>
+        <meta name=description content="Final year project log: adaptive digital modulation selection using a neural network classifier.">
+        <meta name=color-scheme content="light dark">
+        <link rel=icon href=/favicon.svg type=image/svg+xml>
+        <script>
+            ( () => {
+                const e = localStorage.getItem("theme")
+                  , t = e === "dark" ? "dark" : "light";
+                document.documentElement.dataset.theme = t
+            }
+            )()
+        </script>
+        <link rel="stylesheet" href="../css/main.css" crossorigin="anonymous">
+        <style>
+          
+           
+        </style>
+    </head>
+    <body class="bg-canvas text-ink antialiased">
+        <main class=page-shell>
+            <button class=theme-toggle type=button aria-label="Toggle color theme" aria-pressed=false data-theme-toggle>
+                <span aria-hidden=true data-theme-icon>◐</span>
+            </button>
+
+            <div class=page-detail>
+                <a class=page-back href="../projects/projects.html">← Back to projects</a>
+
+                <div class=detail-header>
+                    <p class=detail-kicker> Project · Electrical &amp; Electronics Engineering</p>
+                    <h1>Adaptive Modulation Selection using Machine Learning</h1>
+                    <p class=detail-summary>
+                        A build log of my project: a neural network that learns to pick
+                        the best digital modulation scheme (BPSK, QPSK, or 16‑QAM) for a given
+                        channel SNR, trained on data generated from first‑principles Python
+                        simulations verified against communications theory. This page documents
+                        the process phase by phase, including the bugs found along the way and
+                        how each was diagnosed and fixed - bugs are as much a part of this log as
+                        the results.
+                    </p>
+                    <p class=detail-summary>
+                        <a href="https://github.com/giichinga/Digital-Signals-Modulation-Simulations" target=_blank rel=noreferrer  class="article-copy-link">Source Code Here</a>
+                        
+                    </p>
+                </div>
+
+                <div class=article-copy>
+
+                    <div class=writing-intro>
+                        <h2>Why this project</h2>
+                        <p>
+                            Real communication systems don't use a single fixed modulation scheme.
+                            4G and 5G links constantly adapt - using robust, low‑throughput
+                            modulation when the channel is noisy, and switching to dense,
+                            high‑throughput modulation when the channel is clean. This project
+                            reproduces that idea end‑to‑end: simulate the physics, generate a
+                            labelled dataset from it, and train a small neural network to make the
+                            same switching decision a real transmitter would need to make. Also, it happens
+                            that my Signals and Communication/Microwaves lecturer: Eng S.N Manegene is a huge comms nerd and I would love to have 
+                            him as my supervisor for this project.
+                        </p>
+                       
+                    </div>
+
+                    <!-- ============================================================ -->
+                    <h2>Phase 1 - Digital Modulation Simulations <span class="status-pill status-done">Done</span></h2>
+                    <p>
+                        Everything starts from first principles in Python, using
+                        <em>Mathuranathan Viswanathan's</em> <strong>Digital Modulations using
+                        Python</strong> as a reference for structure and the underlying theory,
+                        with the BER formulas and channel models re‑derived and verified rather
+                        than copied wholesale. You can find the book here: <a href="http://ael.chungbuk.ac.kr/lectures/graduate/%EC%A0%84%ED%8C%8C%EC%8B%A0%ED%98%B8%EC%B2%98%EB%A6%AC/Mathuranathan%20Viswanathan%20-%20Digital%20Modulations%20using%20Python%20(2019).pdf" target=_blank rel=noreferrer>Digital Modulations using Python</a>.
+                    </p>
+
+                    <h3>BPSK</h3>
+                    <p>
+                        The first building block: NRZ‑mapped BPSK symbols (0→−1, 1→+1), passed
+                        through an AWGN channel at a range of Eb/N0 values, demodulated with a
+                        simple zero‑threshold detector, and checked bit‑for‑bit against the
+                        transmitted stream to compute BER. The simulated BER curve was verified
+                        against the closed‑form theoretical formula:
+                    </p>
+                    <pre><code>BER = 0.5 * erfc( sqrt(Eb/N0) )</code></pre>
+                    <p>Simulated and theoretical curves matched closely across the tested SNR range, confirming the implementation was physically correct.</p>
+                    <div class="screenshot-slot">
+                        <img src="../assets/bpsk.png">
+                    </div>
+
+                    <h3>QPSK</h3>
+                    <p>
+                        QPSK reuses the BPSK modulator twice - bits are split into I and Q
+                        streams, each BPSK‑modulated, then combined into a complex symbol
+                        (I + jQ). Since QPSK carries 2 bits/symbol on independent I/Q axes with
+                        no BER penalty relative to BPSK, the two theoretical curves are
+                        identical.
+                    </p>
+
+                    
+
+                    <p><strong>Bug found:</strong> the initial simulated QPSK curve drifted away from theory at higher SNR while matching well at low SNR - a classic sign of a systematic (not statistical) error.</p>
+                    <p><strong>Diagnosis:</strong> when generating complex AWGN as <code>noise_std * (randn() + 1j*randn())</code>, the real and imaginary parts each contribute <code>noise_std²</code> of power, so the total complex noise power is double what the original BPSK‑derived formula assumed.</p>
+                    <p><strong>Fix:</strong> derive the noise standard deviation directly from the actual measured symbol energy rather than a hardcoded formula:</p>
+                    <pre><code>Es = np.mean(np.abs(symbols)**2)   # measured, not assumed
+k  = 2                              # bits per symbol
+Eb = Es / k
+N0 = Eb / EbN0
+sigma = np.sqrt(N0 / 2)
+noise = sigma * (np.random.randn(*symbols.shape)
+                 + 1j*np.random.randn(*symbols.shape))</code></pre>
+                    <p>This same energy‑measured approach was then applied consistently across BPSK, QPSK and 16‑QAM.</p>
+
+                    <div class="screenshot-slot">
+                        <img src="../assets/qpsk.png">
+                    </div>
+
+                    <h3>16‑QAM</h3>
+                    <p>
+                        16‑QAM maps 4 bits per symbol - 2 bits to an in‑phase amplitude level and
+                        2 bits to a quadrature amplitude level, each drawn from
+                        <code>{-3, -1, +1, +3}</code>. Demodulation uses three thresholds per axis
+                        (<code>-2, 0, +2</code>) instead of BPSK/QPSK's single threshold.
+                    </p>
+
+                    <div class="screenshot-slot">
+                        <img src="../assets/qam16.png">
+                    </div>
+
+                    <p><strong>Bug found (caught during a later review pass):</strong> two separate issues in the 16‑QAM code.</p>
+                    <ol>
+                        <li>
+                            The theoretical BER formula was using coefficient <code>0.75</code>
+                            instead of the correct Gray‑coded coefficient <code>0.375</code>
+                            (<code>3/8</code>), which meant the theory curve could nonsensically
+                            exceed 0.5 at low SNR.
+                        </li>
+                        <li>
+                            The bit‑to‑amplitude mapping (<code>00→-3, 01→-1, 10→+1, 11→+3</code>)
+                            was <em>not</em> actually Gray‑coded - going from <code>01</code> to
+                            <code>10</code> flips both bits at once, so a single amplitude‑level
+                            slip caused by noise could flip 2 bits instead of 1, making the
+                            simulated BER worse than the (already‑correct) theory predicts.
+                        </li>
+                    </ol>
+                    <p><strong>Fix:</strong> corrected the theoretical formula and re‑ordered the mapping to true Gray order:</p>
+                    <pre><code># Correct Gray-coded 16-QAM theoretical BER
+BER = 0.375 * erfc( sqrt(0.4 * Eb/N0) )
+
+# True Gray order: 00, 01, 11, 10 -> -3, -1, +1, +3
+# (each adjacent transition now flips exactly one bit)</code></pre>
+
+                    <h3>Comparison - BPSK vs QPSK vs 16‑QAM</h3>
+                    <p>
+                        With all three schemes verified individually, a combined plot puts them on
+                        one figure using a single, wide SNR range so the comparison is fair. This
+                        is the plot that motivates the whole project: BPSK and QPSK track each
+                        other exactly (same BER, but QPSK carries double the data), while 16‑QAM
+                        needs roughly 6 dB more SNR to reach the same BER - in exchange for 4×
+                        the throughput of BPSK when the channel allows it.
+                    </p>
+                    <div class="screenshot-slot">
+                        <img src="../assets/comparison.png" alt="Comparison of BER for BPSK, QPSK, and 16-QAM">
+                    </div>
+                    <blockquote>
+                        This SNR gap between the three curves is exactly what the neural network
+                        in Phase 3 learns to exploit: low SNR → BPSK, mid SNR → QPSK, high SNR →
+                        16‑QAM.
+                    </blockquote>
+
+                    <!-- ============================================================ -->
+                    <h2>Phase 2 - Dataset Generation</h2>
+                    <p>
+                        With verified simulations in place, the next step is to generate labelled
+                        training data. For a grid of SNR values, each modulation scheme is run for
+                        several independent trials, and the resulting BER values are used to
+                        assign a label - the modulation scheme that should be used at that SNR.
+                    </p>
+                    <p>Labelling rule (priority given to the most spectrally efficient scheme that still meets a BER requirement):</p>
+                    <pre><code>BER_THRESHOLD = 1e-2
+
+def get_best_modulation(ber_bpsk, ber_qpsk, ber_qam16):
+    if ber_qam16 < BER_THRESHOLD:
+        return "16-QAM"
+    elif ber_qpsk < BER_THRESHOLD:
+        return "QPSK"
+    else:
+        return "BPSK"</code></pre>
+
+                    <p><strong>Bug found:</strong> the first version of this function checked BPSK's threshold first, which meant that even at very high SNR (where 16‑QAM would work perfectly well), the function returned "BPSK" simply because BPSK's BER happened to be below the threshold too - wasting available channel capacity.</p>
+                    <p><strong>Fix:</strong> reordered the checks to prioritise the highest‑throughput scheme that still satisfies the BER requirement, falling back to BPSK only when nothing else qualifies (shown correctly in the snippet above).</p>
+
+                    <p>
+                        500 rows were generated across an SNR sweep from −4 dB to 20.5 dB (10
+                        trials per SNR point, 100,000 bits per trial). Grouping by SNR and looking
+                        at the assigned label confirms a clean transition:
+                    </p>
+                    <pre><code>-20 dB  to  4.0 dB   -> BPSK
+ 4.5 dB  to  7.5 dB   -> QPSK
+ 8.0 dB  to 20.5 dB   -> 16-QAM</code></pre>
+                    <div class="screenshot-slot">
+                        <img src="../assets/image.png">                    </div>
+
+                    <!-- ============================================================ -->
+                    <h2>Phase 3 - Neural Network Classifier</h2>
+                    <p>
+                        A small multi‑layer perceptron (MLP) is trained to predict
+                        <code>Best_Modulation</code> given the channel conditions:
+                    </p>
+                    <pre><code>Input layer   : SNR_dB
+Hidden layer 1: 16 neurons, ReLU
+Hidden layer 2: 16 neurons, ReLU
+Output layer  : 3 neurons, Softmax (BPSK / QPSK / 16-QAM)</code></pre>
+
+                    <h3>The target leakage bug - the most important bug in this project</h3>
+                    <p>
+                        An early version of the pipeline experimented with feeding the model a
+                        richer feature set: <code>SNR_dB</code> together with the measured
+                        <code>BER_BPSK</code>, <code>BER_QPSK</code>, and <code>BER_16QAM</code>
+                        values for that trial. This version reached exactly <strong>100.00% test
+                        accuracy almost immediately</strong> - a result that should always be
+                        treated with suspicion rather than celebrated outright.
+                    </p>
+                    <p>
+                        <strong>Diagnosis:</strong> the label <code>Best_Modulation</code> was
+                        itself computed directly from <code>BER_BPSK</code>,
+                        <code>BER_QPSK</code>, and <code>BER_16QAM</code> (see the labelling rule
+                        above). Feeding those same BER values back into the model as input
+                        features meant the network wasn't learning a real relationship - it was
+                        just re‑deriving the label from its own ingredients. This is <strong>target
+                        leakage</strong>: a subtle bug where information that was used to construct
+                        the label is also present in the input features, producing results that
+                        look excellent but generalise to nothing.
+                    </p>
+                    <p>
+                        A parallel experiment during this same investigation restructured the
+                        pipeline to extract statistical features (energy, RMS, zero‑crossing rate,
+                        IQ correlation, magnitude entropy, etc.) directly from the received
+                        waveform, sidestepping BER entirely. That pipeline is closer to a
+                        different, related problem - <strong>Automatic Modulation Classification
+                        (AMC)</strong>, where a receiver identifies which scheme is in use from the
+                        signal itself, with no cooperation from the transmitter. AMC is a valid
+                        and interesting project in its own right, but it isn't this project. The
+                        useful, unrelated bug fixes discovered during that detour (the Gray‑coding
+                        fix and the theoretical BER coefficient fix noted in Phase 1) were kept;
+                        the feature‑extraction pipeline itself was set aside to stay focused on
+                        adaptive modulation <em>selection</em>.
+                    </p>
+                    <p><strong>Fix:</strong> the classifier's input features were restricted to <code>SNR_dB</code> only. The BER columns remain in the saved CSV for inspection and plotting, but are never passed to the model:</p>
+                    <pre><code>FEATURE_COLUMNS = ["SNR_dB"]   # the entire fix lives in this one line
+
+X = df[FEATURE_COLUMNS].values
+y = df["Best_Modulation"].values</code></pre>
+                    <p>
+                        This mirrors the real constraint a transmitter faces: it can estimate SNR
+                        ahead of time (via pilot symbols / channel sounding) but cannot know BER in
+                        advance without already having transmitted and decoded the data.
+                    </p>
+
+                    <h3>Results after the fix</h3>
+                    <p>
+                        With <code>SNR_dB</code> as the sole input, training now shows a genuine
+                        learning curve - climbing gradually from around 40% accuracy in early
+                        epochs, plateauing for a stretch while it works out the harder QPSK / 16‑QAM
+                        boundary, and eventually reaching 100% test accuracy by epoch ~40–60. Unlike
+                        the leaky version, this one earns its accuracy: the confusion matrix is
+                        perfectly diagonal, and manual predictions at 2 dB, 7 dB, and 15 dB return
+                        BPSK, QPSK, and 16‑QAM respectively, with graded confidence near the actual
+                        decision boundaries rather than blind certainty everywhere.
+                    </p>
+                    <div class="screenshot-slot">
+                        <img src="../assets/train.png" alt="Training and validation accuracy over epochs">
+                    </div>
+                    <div class="screenshot-slot">
+                        <img src="../assets/confusion-matrix.png" alt="Confusion Matrix">
+                    </div>
+                    <div class="screenshot-slot">
+                        <img src="../assets/accuracyandloss.png">
+                    </div>
+                    <p>
+                        The trained model, scaler, and label encoder are saved to disk
+                        (<code>modulation_classifier.keras</code>, <code>scaler.joblib</code>,
+                        <code>label_encoder.joblib</code>) so Phase 4 can load them directly rather
+                        than retraining.
+                    </p>
+
+                    <!-- ============================================================ -->
+                    <h2>Phase 4 - Real‑Time Adaptive System <span class="status-pill status-pending">In progress</span></h2>
+                    <p>
+                        This section is a placeholder for work currently underway. The plan: simulate
+                        a channel whose SNR drifts slowly over time (a random walk, representing
+                        something like a receiver slowly moving relative to a transmitter), feed the
+                        live SNR estimate into the trained classifier at each time step, and actually
+                        transmit data using whatever scheme it chooses. This adaptive system will be
+                        compared against two fixed baselines - always‑BPSK and always‑16‑QAM - run
+                        over the identical SNR trace, to produce a final throughput‑over‑time
+                        comparison plot. This page will be updated once that phase is complete.
+                    </p>
+                    <div class="screenshot-slot">
+                        📸 SCREENSHOT - reserved for Phase 4 results once complete (SNR trace / throughput comparison / modulation‑choice‑over‑time plot)
+                    </div>
+
+                    <!-- ============================================================ -->
+                    <h2>Bug log</h2>
+                    <p>A consolidated summary of every bug encountered across all three completed phases, for reference.</p>
+                    <table class="bug-table">
+                        <tr>
+                            <th>Phase</th>
+                            <th>Bug</th>
+                            <th>Fix</th>
+                        </tr>
+                        <tr>
+                            <td>1 - QPSK</td>
+                            <td>Simulated BER drifted from theory at higher SNR; complex noise power was double what the formula assumed.</td>
+                            <td>Derived noise σ from measured symbol energy (<code>Es = mean(|symbols|²)</code>) instead of a hardcoded formula.</td>
+                        </tr>
+                        <tr>
+                            <td>1 - 16‑QAM</td>
+                            <td>Theoretical BER coefficient was <code>0.75</code> instead of the correct Gray‑coded <code>0.375</code>.</td>
+                            <td>Corrected to <code>BER = 0.375 * erfc(sqrt(0.4·Eb/N0))</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>1 - 16‑QAM</td>
+                            <td>Bit‑to‑amplitude mapping wasn't true Gray code; a single amplitude slip could flip 2 bits.</td>
+                            <td>Re‑ordered mapping to true Gray sequence: <code>00,01,11,10 → -3,-1,+1,+3</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>2 - Dataset generator</td>
+                            <td>Labelling function checked BPSK's threshold first, wasting capacity at high SNR.</td>
+                            <td>Reordered priority to favour the most efficient scheme that still meets the BER threshold.</td>
+                        </tr>
+                        <tr>
+                            <td>3 - Classifier</td>
+                            <td><strong>Target leakage:</strong> BER values used to construct the label were also fed to the model as input features, producing a meaningless 100% accuracy.</td>
+                            <td>Restricted model inputs to <code>SNR_dB</code> only; BER columns kept in the dataset for inspection but excluded from training features.</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </main>
+
+        <footer class=site-footer>
+            <div class=footer-inner>
+                <p class=footer-label>Elsewhere</p>
+                <nav class=footer-nav aria-label="Social links">
+                    <a class=footer-link href=https://github.com/giichinga target=_blank rel=noreferrer>GitHub</a>
+                    <a class=footer-link href=https://x.com/krispah_ target=_blank rel=noreferrer>X</a>
+                    <a class=footer-link href=https://www.linkedin.com/in/antonny-njoroge target=_blank rel=noreferrer>LinkedIn</a>
+                    <a class=footer-link href=mailto:antonnygichinga@gmail.com>Email</a>
+                    <a class=footer-link href=http://discord.com/users/@toe_knee97 target=_blank rel=noreferrer>Discord</a>
+                    <a class=footer-link href=https://t.me/Giichinga target=_blank rel=noreferrer>Telegram</a>
+                </nav>
+            </div>
+        </footer>
+
+        <script>
+            ( () => {
+                const e = document.querySelector("[data-theme-toggle]")
+                  , t = document.documentElement;
+                if (!e)
+                    return;
+                const n = e.querySelector("[data-theme-icon]")
+                  , s = () => {
+                    const s = t.dataset.theme || "light";
+                    e.setAttribute("aria-pressed", s === "dark" ? "true" : "false"),
+                    n && (n.textContent = s === "dark" ? "☼" : "◐")
+                }
+                ;
+                s(),
+                e.addEventListener("click", () => {
+                    const e = t.dataset.theme === "dark" ? "light" : "dark";
+                    t.dataset.theme = e,
+                    localStorage.setItem("theme", e),
+                    s()
+                }
+                )
+            }
+            )()
+        </script>
+    </body>
+</html>

@@ -822,7 +822,7 @@
     font-weight: 760;
   }
 
-  .article-copy a {
+  .article-copy a, .article-copy-link {
     color: var(--accent-link);
     text-underline-offset: 0.18em;
     text-decoration-line: underline;
@@ -1189,4 +1189,88 @@
   .footer-nav {
     justify-content: flex-start;
   }
+}
+
+ .article-copy pre {
+                background: var(--canvas-soft);
+                border: 1px solid var(--border-soft);
+                padding: 1rem 1.1rem;
+                overflow-x: auto;
+                border-radius: 4px;
+                margin-right: 4rem;
+            }
+            .article-copy pre code {
+                border: 0;
+                background: transparent;
+                padding: 0;
+                font-size: 0.88em;
+                line-height: 1.55;
+                white-space: pre;
+            }
+            .screenshot-slot {
+                border: 2px dashed #d13b3b;
+                color: #d13b3b;
+                background: #d13b3b0d;
+                padding: 1.1rem;              
+                border-radius: 4px;
+                width: fit-content;
+                
+            }
+
+            .screenshot-slot img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+
+            .bug-table {
+                width: 100%;
+                max-width: 68ch;
+                border-collapse: collapse;
+                margin: 0.5rem 0 1.5rem;
+                font-size: 0.95rem;
+            }
+            .bug-table th,
+            .bug-table td {
+                border: 1px solid var(--border-soft);
+                padding: 0.55rem 0.7rem;
+                text-align: left;
+                vertical-align: top;
+                line-height: 1.45;
+            }
+            .bug-table th {
+                background: var(--canvas-soft);
+                color: var(--ink);
+                font-weight: 700;
+            }
+            .status-pill {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                padding: 0.22rem 0.6rem;
+                border-radius: 999px;
+                border: 1px solid var(--border-strong);
+                margin-left: 0.5rem;
+                vertical-align: middle;
+            }
+            .status-done {
+                color: #008f78;
+                border-color: #008f7855;
+                background: #008f780d;
+            }
+            .status-pending {
+                color: #b8860b;
+                border-color: #b8860b55;
+                background: #b8860b0d;
+            }
+
+            @media (max-width: 1000px) {
+  .article-copy pre {
+    margin-right: 0;
+  }
+  
 }
