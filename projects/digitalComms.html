@@ -5,9 +5,9 @@
         <meta charset=utf-8>
         <meta name=viewport content="width=device-width,initial-scale=1">
         <title>Adaptive Modulation Selection using Machine Learning - Antonny Gichinga</title>
-        <meta name=description content="Final year project log: adaptive digital modulation selection using a neural network classifier.">
+        <meta name=description content=" Project log: adaptive digital modulation selection using a neural network classifier.">
         <meta name=color-scheme content="light dark">
-        <link rel=icon href=/favicon.svg type=image/svg+xml>
+        <link rel=icon href=..assets/favicon.svg type=image/svg+xml>
         <script>
             ( () => {
                 const e = localStorage.getItem("theme")
@@ -61,8 +61,9 @@
                             reproduces that idea end‑to‑end: simulate the physics, generate a
                             labelled dataset from it, and train a small neural network to make the
                             same switching decision a real transmitter would need to make. Also, it happens
-                            that my Signals and Communication/Microwaves lecturer: Eng S.N Manegene is a huge comms nerd and I would love to have 
-                            him as my supervisor for this project.
+                            that my Signals and Communication/Microwaves lecturer: Eng S.N Manegene is a huge comms nerd and I would love to
+                            impress him and have 
+                            him as my supervisor for this project should it work. 
                         </p>
                        
                     </div>
@@ -89,6 +90,7 @@
                     <p>Simulated and theoretical curves matched closely across the tested SNR range, confirming the implementation was physically correct.</p>
                     <div class="screenshot-slot">
                         <img src="../assets/bpsk.png">
+                        <p class="screenshot-caption">Simulated BPSK BER (dots) matches theory (line) across the SNR range.</p>
                     </div>
 
                     <h3>QPSK</h3>
@@ -116,6 +118,7 @@ noise = sigma * (np.random.randn(*symbols.shape)
 
                     <div class="screenshot-slot">
                         <img src="../assets/qpsk.png">
+                        <p class="screenshot-caption">Simulated QPSK BER (dots) matches theory (line) across the SNR range.</p>
                     </div>
 
                     <h3>16‑QAM</h3>
@@ -128,6 +131,7 @@ noise = sigma * (np.random.randn(*symbols.shape)
 
                     <div class="screenshot-slot">
                         <img src="../assets/qam16.png">
+                        <p class="screenshot-caption">Simulated 16‑QAM BER (dots) matches theory (line) across the SNR range.</p>
                     </div>
 
                     <p><strong>Bug found (caught during a later review pass):</strong> two separate issues in the 16‑QAM code.</p>
@@ -164,6 +168,7 @@ BER = 0.375 * erfc( sqrt(0.4 * Eb/N0) )
                     </p>
                     <div class="screenshot-slot">
                         <img src="../assets/comparison.png" alt="Comparison of BER for BPSK, QPSK, and 16-QAM">
+                        <p class="screenshot-caption">BPSK and QPSK track each other exactly, while 16‑QAM needs roughly 6 dB more SNR to reach the same BER.</p>
                     </div>
                     <blockquote>
                         This SNR gap between the three curves is exactly what the neural network
@@ -172,7 +177,7 @@ BER = 0.375 * erfc( sqrt(0.4 * Eb/N0) )
                     </blockquote>
 
                     <!-- ============================================================ -->
-                    <h2>Phase 2 - Dataset Generation</h2>
+                    <h2>Phase 2 - Dataset Generation <span class="status-pill status-done">Done</span></h2>
                     <p>
                         With verified simulations in place, the next step is to generate labelled
                         training data. For a grid of SNR values, each modulation scheme is run for
@@ -202,10 +207,12 @@ def get_best_modulation(ber_bpsk, ber_qpsk, ber_qam16):
  4.5 dB  to  7.5 dB   -> QPSK
  8.0 dB  to 20.5 dB   -> 16-QAM</code></pre>
                     <div class="screenshot-slot">
-                        <img src="../assets/image.png">                    </div>
+                        <img src="../assets/image.png"> 
+                    <p class="screenshot-caption">Generated dataset showing the transition from BPSK to QPSK to 16-QAM as SNR increases.</p>
+                    </div>
 
                     <!-- ============================================================ -->
-                    <h2>Phase 3 - Neural Network Classifier</h2>
+                    <h2>Phase 3 - Neural Network Classifier<span class="status-pill status-done">Done</span></h2>
                     <p>
                         A small multi‑layer perceptron (MLP) is trained to predict
                         <code>Best_Modulation</code> given the channel conditions:
@@ -273,12 +280,15 @@ y = df["Best_Modulation"].values</code></pre>
                     </p>
                     <div class="screenshot-slot">
                         <img src="../assets/train.png" alt="Training and validation accuracy over epochs">
+                        <p class="screenshot-caption">Training and validation accuracy over epochs.</p>
                     </div>
                     <div class="screenshot-slot">
                         <img src="../assets/confusion-matrix.png" alt="Confusion Matrix">
+                        <p class="screenshot-caption">Confusion matrix showing the model's performance.</p>
                     </div>
                     <div class="screenshot-slot">
-                        <img src="../assets/accuracyandloss.png">
+                        <img src="../assets/accuracyandloss.png" alt="Training and validation loss over epochs">
+                        <p class="screenshot-caption">Training and validation loss over epochs.</p>
                     </div>
                     <p>
                         The trained model, scaler, and label encoder are saved to disk
@@ -299,9 +309,7 @@ y = df["Best_Modulation"].values</code></pre>
                         over the identical SNR trace, to produce a final throughput‑over‑time
                         comparison plot. This page will be updated once that phase is complete.
                     </p>
-                    <div class="screenshot-slot">
-                        📸 SCREENSHOT - reserved for Phase 4 results once complete (SNR trace / throughput comparison / modulation‑choice‑over‑time plot)
-                    </div>
+                    
 
                     <!-- ============================================================ -->
                     <h2>Bug log</h2>

@@ -1208,8 +1208,7 @@
                 white-space: pre;
             }
             .screenshot-slot {
-                border: 2px dashed #d13b3b;
-                color: #d13b3b;
+                border: 2px dashed #71797e;
                 background: #d13b3b0d;
                 padding: 1.1rem;              
                 border-radius: 4px;
@@ -1266,6 +1265,17 @@
                 color: #b8860b;
                 border-color: #b8860b55;
                 background: #b8860b0d;
+            }
+
+            .screenshot-caption {
+                font-size: 0.85rem;
+                color: var(--ink-faint);
+                text-align: center;
+                margin-top: 0.4rem;
+                display: block;
+                margin: auto;
+                font-style: italic;
+                
             }
 
             @media (max-width: 1000px) {
