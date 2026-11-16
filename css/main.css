@@ -1017,6 +1017,107 @@
     transform: translate(0.18rem, -0.18rem);
   }
 
+  .graphic-detail {
+    width: min(100%, 70rem);
+  }
+
+  .design-section {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .design-section-heading {
+    margin-bottom: 1.25rem;
+  }
+
+  .design-section-heading p {
+    color: var(--ink-faint);
+    margin: 0.55rem 0 0;
+  }
+
+  .poster-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    display: grid;
+  }
+
+  .poster-card {
+    border: 1px solid var(--border-soft);
+    background: var(--canvas-elevated);
+    box-shadow: 0 14px 30px var(--shadow-color);
+    padding: clamp(0.5rem, 1.5vw, 0.9rem);
+  }
+
+  .poster-preview {
+    background: var(--canvas-soft);
+    display: block;
+    overflow: hidden;
+  }
+
+  .poster-preview img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.25s;
+  }
+
+  .poster-preview:hover img {
+    transform: scale(1.015);
+  }
+
+  .poster-card figcaption {
+    color: var(--ink-dim);
+    padding: 0.85rem 0.25rem 0.25rem;
+    font-size: 0.95rem;
+  }
+
+  .print-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    display: grid;
+  }
+
+  .print-card {
+    border: 1px solid var(--border-soft);
+    background: var(--canvas-elevated);
+    box-shadow: 0 14px 30px var(--shadow-color);
+    min-height: 10rem;
+    padding: 1.25rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    transition:
+      transform 0.18s,
+      border-color 0.18s,
+      box-shadow 0.18s;
+  }
+
+  .print-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 20px 44px var(--shadow-color);
+    transform: translateY(-2px);
+  }
+
+  .print-card-type {
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .print-card-title {
+    letter-spacing: -0.05em;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    line-height: 1.1;
+  }
+
+  .print-card-link {
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+  }
+
   .post-date {
     color: var(--ink-faint);
     font-family: var(--font-mono);
@@ -1179,6 +1280,11 @@
 
   .project-card-arrow {
     display: none;
+  }
+
+  .poster-grid,
+  .print-grid {
+    grid-template-columns: 1fr;
   }
 
   .article-copy {
