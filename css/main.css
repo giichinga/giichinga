@@ -978,17 +978,26 @@
     font-size: clamp(1.2rem, 2vw, 1.5rem);
     line-height: 1;
   }
-  .web-dev {
-    color: #008f00;
+  .watuwise {
+    color: #003e95;
   }
 
-  .design {
-    color: #ff2daf;
+  .mycar {
+    color: #c33f18;
   }
 
-  .pcb {
-    color: #0151fd;
+  .aqualite {
+    color: #01e4fd;
   }
+
+  .scentstory {
+    color: #f014d2
+  }
+
+  .madristars {
+    color:#2a71d5
+  }
+
   .project-card-copy p {
     color: var(--ink-dim);
     margin: 0;
