@@ -16,7 +16,7 @@
         }
         )()
     </script>
-    <link rel="stylesheet" href="../css/main.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body class="bg-canvas text-ink antialiased">
@@ -25,7 +25,7 @@
             <span aria-hidden=true data-theme-icon>◐</span>
         </button>
         <article class=page-detail>
-            <a class=page-back href="../index.html">← Home</a>
+            <a class=page-back href="index.html">← Home</a>
             <header class=detail-header>
                 <p class=detail-kicker>Antonny Gichinga</p>
                 <h1>Web Dev Projects</h1>
@@ -34,42 +34,82 @@
             </header>
             <section class=project-board aria-labelledby=project-board-title>
                 <h2 id=project-board-title class=project-board-title>Selected works</h2>
-                <div class=project-list>
-                    <a class=project-card href=https://watuwise.com/ target=_blank rel=noreferrer>
-                        <div class=project-card-copy web-dev>
-                            <h3 class=watuwise>Watuwise Limited</h3>
-                            <p>Website for a tech company that does software engineering, cybersecurity among other
-                                things</p>
-                        </div>
-                        <span class=project-card-arrow aria-hidden=true>↗</span>
+                <div class="print-grid project-grid">
+                    <a class="print-card project-card" href="https://watuwise.com/" target="_blank" rel="noreferrer">
+                        <span class="print-card-type">Web project</span>
+                        <span class="print-card-title">Watuwise Limited</span>
+                        <ul class="tech-stack" aria-label="Technologies used">
+                            <li><span class="tech-pill tech-vue"><img src="https://cdn.simpleicons.org/vuedotjs/42B883"
+                                        alt="" aria-hidden="true"><span>Vue.js</span></span></li>
+                            <li><span class="tech-pill tech-tailwind"><img
+                                        src="https://cdn.simpleicons.org/tailwindcss/06B6D4" alt=""
+                                        aria-hidden="true"><span>Tailwind CSS</span></span></li>
+                        </ul>
+                        <span class="project-card-description">Website for a tech company that does software
+                            engineering, cybersecurity among other things.</span>
+                        <span class="print-card-link" aria-hidden="true">Visit website ↗</span>
                     </a>
-                    <a class=project-card href=https://mycarapp.co.ke/ target=_blank rel=noreferrer>
-                        <div class=project-card-copy>
-                            <h3 class=mycar>My Car Kenya</h3>
-                            <p>Online marketplace for selling vehicles, spare parts and accessories</p>
-                        </div>
-                        <span class=project-card-arrow aria-hidden=true>↗</span>
+                    <a class="print-card project-card" href="https://mycarapp.co.ke/" target="_blank" rel="noreferrer">
+                        <span class="print-card-type">Web project</span>
+                        <span class="print-card-title">My Car Kenya</span>
+                        <ul class="tech-stack" aria-label="Technologies used">
+                            <li><span class="tech-pill tech-react"><img src="https://cdn.simpleicons.org/react/61DAFB"
+                                        alt="" aria-hidden="true"><span>React</span></span></li>
+                            <li><span class="tech-pill tech-express"><img
+                                        src="https://cdn.simpleicons.org/express/000000" alt=""
+                                        aria-hidden="true"><span>Express</span></span></li>
+                            <li><span class="tech-pill tech-nginx"><img src="https://cdn.simpleicons.org/nginx/009639"
+                                        alt="" aria-hidden="true"><span>Nginx</span></span></li>
+                        </ul>
+                        <span class="project-card-description">Online marketplace for selling vehicles, spare parts
+                            and accessories.</span>
+                        <span class="print-card-link" aria-hidden="true">Visit website ↗</span>
                     </a>
-                    <a class=project-card href=https://aqualite.africa/ target=_blank rel=noreferrer>
-                        <div class=project-card-copy>
-                            <h3 class=aqualite>Aqualite Africa</h3>
-                            <p>Online website for aqualite which delivers mineral water in Nairobi and Kiambu</p>
-                        </div>
-                        <span class=project-card-arrow aria-hidden=true>↗</span>
+                    <a class="print-card project-card" href="https://aqualite.africa/" target="_blank" rel="noreferrer">
+                        <span class="print-card-type">Web project</span>
+                        <span class="print-card-title">Aqualite Africa</span>
+                        <ul class="tech-stack" aria-label="Technologies used">
+                            <li><span class="tech-pill tech-php"><img src="https://cdn.simpleicons.org/php/777BB4"
+                                        alt="" aria-hidden="true"><span>PHP</span></span></li>
+                            <li><span class="tech-pill tech-jquery"><img src="https://cdn.simpleicons.org/jquery/0769AD"
+                                        alt="" aria-hidden="true"><span>jQuery</span></span></li>
+                            <li><span class="tech-pill tech-bootstrap"><img
+                                        src="https://cdn.simpleicons.org/bootstrap/7952B3" alt=""
+                                        aria-hidden="true"><span>Bootstrap</span></span></li>
+                        </ul>
+                        <span class="project-card-description">Website for Aqualite, which delivers mineral water in
+                            Nairobi and Kiambu.</span>
+                        <span class="print-card-link" aria-hidden="true">Visit website ↗</span>
                     </a>
-                    <a class=project-card href=https://scentstory.co.ke/ target=_blank rel=noreferrer>
-                        <div class=project-card-copy>
-                            <h3 class=scentstory>Scent Story</h3>
-                            <p>E-commerce platform for designer perfumes</p>
-                        </div>
-                        <span class=project-card-arrow aria-hidden=true>↗</span>
+                    <a class="print-card project-card" href="https://scentstory.co.ke/" target="_blank" rel="noreferrer">
+                        <span class="print-card-type">Web project</span>
+                        <span class="print-card-title">Scent Story</span>
+                        <ul class="tech-stack" aria-label="Technologies used">
+                            <li><span class="tech-pill tech-wordpress"><img
+                                        src="https://cdn.simpleicons.org/wordpress/21759B" alt=""
+                                        aria-hidden="true"><span>WordPress</span></span></li>
+                            <li><span class="tech-pill tech-woocommerce"><img
+                                        src="https://cdn.simpleicons.org/woocommerce/96588A" alt=""
+                                        aria-hidden="true"><span>WooCommerce</span></span></li>
+                        </ul>
+                        <span class="project-card-description">E-commerce platform for designer perfumes.</span>
+                        <span class="print-card-link" aria-hidden="true">Visit website ↗</span>
                     </a>
-                    <a class=project-card href=https://madristars.co.ke/ target=_blank rel=noreferrer>
-                        <div class=project-card-copy>
-                            <h3 class=madristars>Madristars FC</h3>
-                            <p>Turf football team based in Donholm, Nairobi</p>
-                        </div>
-                        <span class=project-card-arrow aria-hidden=true>↗</span>
+                    <a class="print-card project-card" href="https://madristars.co.ke/" target="_blank"
+                        rel="noreferrer">
+                        <span class="print-card-type">Web project</span>
+                        <span class="print-card-title">Madristars FC</span>
+                        <ul class="tech-stack" aria-label="Technologies used">
+                            <li><span class="tech-pill tech-next"><img
+                                        src="https://cdn.simpleicons.org/nextdotjs/000000" alt=""
+                                        aria-hidden="true"><span>Next.js</span></span></li>
+                            <li><span class="tech-pill tech-postgresql"><img
+                                        src="https://cdn.simpleicons.org/postgresql/4169E1" alt=""
+                                        aria-hidden="true"><span>PostgreSQL</span></span></li>
+                        </ul>
+                        <span class="project-card-description">Website for a turf football team based in Donholm,
+                            Nairobi.</span>
+                        <span class="print-card-link" aria-hidden="true">Visit website ↗</span>
                     </a>
                 </div>
             </section>
